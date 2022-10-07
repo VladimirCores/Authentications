@@ -1,0 +1,11 @@
+{
+  "name": "@localsettings/eslint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Vladimir (Cores) Minkin",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": ">= 3"
+  },
+  "yalcSig": "cf1b45a0aa52e222b6182cf8561a0107"
+}
