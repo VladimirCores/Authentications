@@ -1,37 +1,16 @@
 import './style.css';
 import { Authorizer } from '@authorizerdev/authorizer-js';
-import PouchDB from 'pouchdb';
+import TokenVO from './entities/vos/token_vo.js';
+import HeaderVO from './entities/vos/header_vo.js';
 
-const EXTRA_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Accept',
-  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE',
-  'Access-Control-Allow-Credentials': 'true',
-};
+const DB_URL_BOOKS = 'http://localhost:5984/books';
+const BOOKS_PER_PAGE = 30;
 
 const authorizer = new Authorizer({
   authorizerURL: 'http://localhost:8081/',
   redirectURL: window.location.origin,
   clientID: '9a8498c5-6c09-4881-82c0-ae91626515b2', // obtain your client id from authorizer dashboard
-  //extraHeaders: EXTRA_HEADERS,
 });
-
-class TokenVO {
-  constructor(data) {
-    this.access_token = data.access_token;
-    this.expired = data.expires_in;
-    this.roles = data.roles;
-    this.scope = data.scope;
-    this.id_token = data.id_token;
-    this.token_type = data.token_type;
-  }
-  get isValid() {
-    return !!this.access_token;
-  }
-  get auth() {
-    return { Authorization: `${this.token_type} ${this.access_token}` };
-  }
-}
 
 const onLogout = function (e) {
   console.log('> onLogout: ', e);
@@ -40,32 +19,40 @@ const onLogout = function (e) {
 window.onLogout = onLogout;
 
 async function Authorize() {
-  console.log('> Authorize: authorizer.config =', authorizer.config);
+  // console.log('> Authorize: authorizer.config =', authorizer.config);
   const tokenVO = new TokenVO(
     await authorizer
-      .authorize({
-        response_type: 'token',
-        use_refresh_token: false,
-      })
+      .authorize({ response_type: 'token', use_refresh_token: false })
       .then((data) => {
-        console.log('> Authorize: authorize success =', data);
+        // console.log('> Authorize: authorize success =', data);
         return data;
       })
       .catch((e) => ({})),
   );
-  console.log('> Authorize: authorize tokenVO =', tokenVO);
+  // console.log('> Authorize: authorize tokenVO =', tokenVO);
   return tokenVO;
 }
 
-function CreateBodyDOM(isTokenValid) {
-  return isTokenValid
-    ? `You are logged in
+async function CreateBodyDOM(tokenVO) {
+  if (tokenVO.isValid) {
+    const headers = new HeaderVO(tokenVO).forCouchDB;
+    const dbBooksInfoResponse = await fetch(DB_URL_BOOKS, { method: 'GET', headers });
+    const dbBooksInfoData = await dbBooksInfoResponse.json();
+    const numberOfBooks = dbBooksInfoData.doc_count;
+    const numberOfPages = Math.ceil(numberOfBooks / BOOKS_PER_PAGE);
+    console.log('> books info:', { numberOfBooks, numberOfPages });
+    return `<b>You are logged in.</b>
+      <div>Number of books: ${numberOfBooks}</div>
+      <small>pages: ${numberOfPages}</small>
       <div class="card">
         <button id="btnRequestBooks" type="button">Request Books</button>
+        <button id="btnUploadBooks" type="button">Upload Books</button>
         <button id="btnLogout" type="button">Logout</button>
       </div>
-    `
-    : `
+      <div id="booksList"></div>
+    `;
+  } else
+    return `
     <div class="card">
       <div><input id="inpEmail" type="email" placeholder="Enter email" value="vladimir.minkin@gmail.com"/></div>
       <div><input id="inpPass" type="password" placeholder="Enter password" value="123"/></div>
@@ -75,13 +62,13 @@ function CreateBodyDOM(isTokenValid) {
 }
 
 async function CreateHeaderDOM(tokenVO) {
-  console.log('> CreateHeaderDOM -> tokenVO.auth', tokenVO.auth);
+  // console.log('> CreateHeaderDOM -> tokenVO.auth', tokenVO.auth);
   return (
     (tokenVO &&
       (await authorizer
         .getProfile({ ...tokenVO.auth })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           return `Welcome ${data.family_name || 'No'} ${data.given_name || 'Name'}`;
         })
         .catch((e) => 'Error retrieveing profile'))) ||
@@ -107,13 +94,19 @@ function ProcessAuthorizedUser(tokenVO) {
   };
   btnRequestBooks.onclick = async (e) => {
     console.log('> btnRequestBooks -> onClick');
-    var db = new PouchDB('http://localhost:5984/books', {
-      fetch: function (url, opts) {
-        opts.headers.set('X-Some-Special-Header', 'foo');
-        return PouchDB.fetch(url, opts);
-      },
+    fetch(`${DB_URL_BOOKS}/_find`, {
+      method: 'POST',
+      headers: new HeaderVO(tokenVO).forCouchDB,
+      body: JSON.stringify({
+        limit: BOOKS_PER_PAGE,
+        offset: 0,
+      }),
+    }).then(async (response) => {
+      const data = await response.json();
+      console.log('> data ->', data);
+      // const domBooksList = document.getElementById('booksList');
+      // domBooksList.append();
     });
-    // await authorizer.logout(tokenVO.auth);
   };
 }
 
@@ -132,7 +125,7 @@ function ProcessUnAuthorized() {
   const tokenVO = await Authorize();
   const isTokenValid = tokenVO.isValid;
   const domHeader = await CreateHeaderDOM(tokenVO);
-  const domBody = CreateBodyDOM(isTokenValid);
+  const domBody = await CreateBodyDOM(tokenVO);
   await RenderDOM(domHeader, domBody).then(() => {
     if (isTokenValid) {
       ProcessAuthorizedUser(tokenVO);

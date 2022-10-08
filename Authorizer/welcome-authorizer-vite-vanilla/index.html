@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      if (window.global === undefined) { window.global = window; }
+    </script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
