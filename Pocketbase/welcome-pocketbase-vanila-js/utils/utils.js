@@ -31,3 +31,21 @@ export async function loadJsonFromFile(file) {
     fileReader.readAsText(file);
   });
 }
+
+export async function uploadFromDomInput(domInputId, filesProcessorAsyncMethod) {
+  const domInputUploadFile = document.getElementById(domInputId);
+  if (!domInputUploadFile) throw new Error(`No DOM element with id: ${domInputId}`);
+  domInputUploadFile.addEventListener('change', async () => {
+    console.log('> inpUploadFile.value', domInputUploadFile.files);
+    const load = async (files) => {
+      for await (const file of files) {
+        console.log('> \t', file);
+        const jsonData = await loadJsonFromFile(file);
+        console.log('> \t content:', jsonData);
+        filesProcessorAsyncMethod(jsonData);
+      }
+    };
+    await load(domInputUploadFile.files);
+  });
+  domInputUploadFile.click();
+}

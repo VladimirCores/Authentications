@@ -16,6 +16,8 @@ export default `
     </bx-form-item>
     <div style="height: 1rem;"></div>
     <bx-btn id="btnSubmit">Submit</bx-btn>
+    <div style="height: 1rem;"></div>
+    <bx-checkbox id="chbSignup" label-text="Signup"></bx-checkbox>
   </bx-tile>
 </div>
 `;

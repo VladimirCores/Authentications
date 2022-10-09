@@ -15,8 +15,7 @@ export default (userName) => `
     <div style="flex: 0 1 auto; align-self: auto; padding: 1rem; background-color: lightblue">
       <h4>Books list:</h4>
       <bx-loading id="preloaderBooks" inactive style="display: none;"></bx-loading>
-      <div id="booksContainer">Empty</div>
-      
+      <div id="booksContainer"></div>
     </div>
   </div>
 </div>
