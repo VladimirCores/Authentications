@@ -15,10 +15,8 @@ const authorizer = new Authorizer({
 
 const fetchBooksView = (tokenVO, view, method = 'GET', reduce = false) => {
   const headers = new HeaderVO(tokenVO).forCouchDB;
-  return fetch(`${DB_URL_BOOKS}/_design/all/_view/${view}${reduce ? '?reduce=true' : ''}`, {
-    method,
-    headers,
-  });
+  const viewPath = `/_design/all/_view/${view}${reduce ? '?reduce=true' : ''}`;
+  return fetch(`${DB_URL_BOOKS}${viewPath}`, { method, headers });
 };
 
 const onLogout = function (e) {
