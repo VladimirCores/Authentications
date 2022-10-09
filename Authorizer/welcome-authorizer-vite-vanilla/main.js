@@ -2,6 +2,7 @@ import './style.css';
 import { Authorizer } from '@authorizerdev/authorizer-js';
 import TokenVO from './entities/vos/token_vo.js';
 import HeaderVO from './entities/vos/header_vo.js';
+import { uploadFromDomInput } from './utils.js';
 
 const DB_URL_BOOKS = 'http://localhost:5984/books';
 const BOOKS_PER_PAGE = 30;
@@ -11,6 +12,14 @@ const authorizer = new Authorizer({
   redirectURL: window.location.origin,
   clientID: '9a8498c5-6c09-4881-82c0-ae91626515b2', // obtain your client id from authorizer dashboard
 });
+
+const fetchBooksView = (tokenVO, view, method = 'GET', reduce = false) => {
+  const headers = new HeaderVO(tokenVO).forCouchDB;
+  return fetch(`${DB_URL_BOOKS}/_design/all/_view/${view}${reduce ? '?reduce=true' : ''}`, {
+    method,
+    headers,
+  });
+};
 
 const onLogout = function (e) {
   console.log('> onLogout: ', e);
@@ -35,16 +44,16 @@ async function Authorize() {
 
 async function CreateBodyDOM(tokenVO) {
   if (tokenVO.isValid) {
-    const headers = new HeaderVO(tokenVO).forCouchDB;
-    const dbBooksInfoResponse = await fetch(DB_URL_BOOKS, { method: 'GET', headers });
+    const dbBooksInfoResponse = await fetchBooksView(tokenVO, 'amount', 'GET', true);
     const dbBooksInfoData = await dbBooksInfoResponse.json();
-    const numberOfBooks = dbBooksInfoData.doc_count;
+    console.log('> books info:', dbBooksInfoData);
+    const numberOfBooks = dbBooksInfoData.rows[0].value;
     const numberOfPages = Math.ceil(numberOfBooks / BOOKS_PER_PAGE);
-    console.log('> books info:', { numberOfBooks, numberOfPages });
     return `<b>You are logged in.</b>
       <div>Number of books: ${numberOfBooks}</div>
-      <small>pages: ${numberOfPages}</small>
+      <small>pages: ${numberOfPages} (${BOOKS_PER_PAGE} per page)</small>
       <div class="card">
+        <input id='inpUploadFile' type='file' accept="application/json" hidden/>
         <button id="btnRequestBooks" type="button">Request Books</button>
         <button id="btnUploadBooks" type="button">Upload Books</button>
         <button id="btnLogout" type="button">Logout</button>
@@ -87,25 +96,49 @@ async function RenderDOM(headerDOM, bodyDOM) {
 
 function ProcessAuthorizedUser(tokenVO) {
   const btnLogout = document.getElementById('btnLogout');
+  const btnUploadBooks = document.getElementById('btnUploadBooks');
   const btnRequestBooks = document.getElementById('btnRequestBooks');
+
+  let offset = 0;
+
   btnLogout.onclick = async (e) => {
     console.log('> btnLogout -> onClick');
     await authorizer.logout(tokenVO.auth);
+    window.location = '/';
   };
+
   btnRequestBooks.onclick = async (e) => {
     console.log('> btnRequestBooks -> onClick');
-    fetch(`${DB_URL_BOOKS}/_find`, {
-      method: 'POST',
-      headers: new HeaderVO(tokenVO).forCouchDB,
-      body: JSON.stringify({
-        limit: BOOKS_PER_PAGE,
-        offset: 0,
-      }),
-    }).then(async (response) => {
+    const query = new URLSearchParams();
+    query.set('limit', BOOKS_PER_PAGE);
+    query.set('skip', offset);
+    fetchBooksView(tokenVO, `list?${query}`).then(async (response) => {
       const data = await response.json();
+      const rows = data.rows;
+      const total = data.total_rows;
+      offset += BOOKS_PER_PAGE;
+      if (total < offset) btnRequestBooks.disabled = true;
       console.log('> data ->', data);
-      // const domBooksList = document.getElementById('booksList');
-      // domBooksList.append();
+      const booksList = `<ul>${rows
+        .map((book) => `<li style="text-align: left;">${book.value.title}</li>`)
+        .join('')}</ul>`;
+      const domBooksList = document.getElementById('booksList');
+      domBooksList.innerHTML = `${domBooksList.innerHTML}<b>Page: ${Math.floor(
+        offset / BOOKS_PER_PAGE,
+      )}</b>${booksList}<hr>`;
+    });
+  };
+
+  btnUploadBooks.onclick = async (e) => {
+    uploadFromDomInput('inpUploadFile', async (files) => {
+      fetch(`${DB_URL_BOOKS}/_bulk_docs`, {
+        method: 'POST',
+        headers: new HeaderVO(tokenVO).forCouchDB,
+        body: JSON.stringify({ docs: files }),
+      }).then(async (response) => {
+        const data = await response.json();
+        console.log('> data ->', data);
+      });
     });
   };
 }
