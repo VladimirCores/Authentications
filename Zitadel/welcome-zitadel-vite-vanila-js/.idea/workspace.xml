@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="00deb378-1bcd-450a-a05c-834d64c7deef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/.env.development" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/.idea/welcome-nhost-vanila-js.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/src/counter.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/src/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/src/typescript.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/src/vite-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/.env.development" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/email-confirm-change/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/email-confirm-change/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/email-verify/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/email-verify/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/password-reset/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/password-reset/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/signin-passwordless-sms/body.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/signin-passwordless/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/en/signin-passwordless/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/email-confirm-change/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/email-confirm-change/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/email-verify/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/email-verify/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/password-reset/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/password-reset/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/signin-passwordless-sms/body.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/signin-passwordless/body.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/welcome-nhost-vanila-js/nhost/emails/fr/signin-passwordless/subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NHost/VanilaJS/welcome-nhost-vanila-js/yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2Fvx49ROH4W5zxgZujDHpu3l2SP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/vladimir/Documents/Projects/Study/Auth/Zitadel/welcome-zitadel-vite-vanilla-js",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="00deb378-1bcd-450a-a05c-834d64c7deef" name="Changes" comment="" />
+      <created>1665386164814</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665386164814</updated>
+      <workItem from="1665386166026" duration="98000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
