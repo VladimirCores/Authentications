@@ -9,6 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@localsettings/prettier": "file:.yalc/@localsettings/prettier",
+    "client-oauth2": "^4.3.3",
+    "openid-client": "^5.1.10",
+    "prettier": "^2.7.1",
     "vite": "^3.1.0"
-  }
+  },
+  "prettier": "@localsettings/prettier"
 }
