@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "pouchdb": "^8.0.0",
-    "pouchdb-browser": "^8.0.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {
